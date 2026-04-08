@@ -1,16 +1,32 @@
-spring.application.name=demo
-# Banco H2 persistente
-spring.profiles.active=dev
-spring.datasource.url=jdbc:h2:mem:testdb
+server:
+  port: 8081
 
-spring.datasource.driver-class-name=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
+spring:
+  application:
+    name: user-service
 
-# Dialeto do Hibernate para H2
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+  profiles:
+    active: dev
 
-# H2 console
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
-logging.level.org.springframework.security=DEBUG
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
