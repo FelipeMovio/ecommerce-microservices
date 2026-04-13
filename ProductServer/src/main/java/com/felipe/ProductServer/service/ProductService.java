@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -21,9 +23,17 @@ public class ProductService {
 
     // create
     public void create(ProductRequestDTO dto) {
-        Product response = dto.toEntity();
 
-        repository.save(response);
+        Optional<Product> existente = repository.findByName(dto.name());
+
+        if (existente.isPresent()) {
+            Product product = existente.get();
+            product.setStock(product.getStock() + dto.stock());
+            repository.save(product);
+        } else {
+            Product novo = dto.toEntity();
+            repository.save(novo);
+        }
     }
 
     // ver lista
