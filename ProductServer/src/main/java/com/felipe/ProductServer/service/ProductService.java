@@ -14,7 +14,10 @@ public class ProductService {
     private final ProductRepository repository;
 
     // create
-    public void create(ProductRequestDTO dto){
+    public void create(ProductRequestDTO dto) throws Exception {
+        if (dto.name() == null || dto.price() == null || dto.stock() == null){
+            throw new Exception("Os valores nao podem ser nulos ");
+        }
         Product response = new Product(null, dto.name(), dto.price(), dto.stock());
 
         repository.save(response);
