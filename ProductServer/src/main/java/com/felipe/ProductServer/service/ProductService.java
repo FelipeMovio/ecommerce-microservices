@@ -59,4 +59,12 @@ public class ProductService {
         repository.save(atualizar);
         return new ProductResponseDTO(atualizar);
     }
+
+    // deletar
+    public void delete(Long id){
+        Product prccurar = repository.findById(id)
+                .orElseThrow(() ->  new EntityNotFoundException("Produto não encontrado"));
+
+        repository.delete(prccurar);
+    }
 }
