@@ -1,6 +1,7 @@
 package com.felipe.ProductServer.service;
 
 import com.felipe.ProductServer.dto.ProductRequestDTO;
+import com.felipe.ProductServer.dto.ProductResponseDTO;
 import com.felipe.ProductServer.dto.ProductResponseMiniDTO;
 import com.felipe.ProductServer.entity.Product;
 import com.felipe.ProductServer.repository.ProductRepository;
@@ -24,10 +25,18 @@ public class ProductService {
     }
 
     // ver lista
-    public Page<ProductResponseMiniDTO> getList(Pageable pageable){
+    public Page<ProductResponseMiniDTO> getList(Pageable pageable) {
 
         return repository.findAll(pageable)
-                .map(ProductResponseMiniDTO ::new);
+                .map(ProductResponseMiniDTO::new);
+    }
+
+    // ver um
+    public ProductResponseDTO getOne(Long id) {
+        Product procurar = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+
+        return new ProductResponseDTO(procurar);
     }
 
 
