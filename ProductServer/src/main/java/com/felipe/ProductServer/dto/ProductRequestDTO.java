@@ -14,9 +14,7 @@ public record ProductRequestDTO(
         @NotNull
         Integer stock
 ) {
-    public ProductRequestDTO(Product p) {
-        this(p.getName(),
-                p.getPrice(),
-                p.getStock());
-    }
+public Product toEntity(){
+    return new Product(null,this.name, this.price, this.stock);
+}
 }

@@ -1,9 +1,12 @@
 package com.felipe.ProductServer.service;
 
 import com.felipe.ProductServer.dto.ProductRequestDTO;
+import com.felipe.ProductServer.dto.ProductResponseMiniDTO;
 import com.felipe.ProductServer.entity.Product;
 import com.felipe.ProductServer.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,13 +17,18 @@ public class ProductService {
     private final ProductRepository repository;
 
     // create
-    public void create(ProductRequestDTO dto) throws Exception {
-        if (dto.name() == null || dto.price() == null || dto.stock() == null){
-            throw new Exception("Os valores nao podem ser nulos ");
-        }
-        Product response = new Product(null, dto.name(), dto.price(), dto.stock());
+    public void create(ProductRequestDTO dto) {
+        Product response = dto.toEntity();
 
         repository.save(response);
     }
+
+    // ver lista
+    public Page<ProductResponseMiniDTO> getList(Pageable pageable){
+
+        return repository.findAll(pageable)
+                .map(ProductResponseMiniDTO ::new);
+    }
+
 
 }
