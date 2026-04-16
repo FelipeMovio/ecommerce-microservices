@@ -50,6 +50,8 @@ public class FilterProductsService {
                 .mapToDouble(p -> p.getAssessment().doubleValue())
                 .summaryStatistics();
 
-        return stats.getCount() > 0 ? stats.getAverage() : null;
+        return stats.getAverage();
+        stats.getMin();
+        stats.getMax();
     }
 }
