@@ -2,6 +2,7 @@ package com.felipe.ProductServer.service;
 
 import com.felipe.ProductServer.dto.ProductResponseDTO;
 import com.felipe.ProductServer.dto.ProductResponseMiniDTO;
+import com.felipe.ProductServer.dto.ProductResponseStatsDTO;
 import com.felipe.ProductServer.entity.Product;
 import com.felipe.ProductServer.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,14 +45,16 @@ public class FilterProductsService {
     }
 
     // media das avaliacoes
-    public Double media(){
+    public ProductResponseStatsDTO media(){
         DoubleSummaryStatistics stats = repository.findAll().stream()
                 .filter(p -> p.getAssessment() != null)
                 .mapToDouble(p -> p.getAssessment().doubleValue())
                 .summaryStatistics();
 
-        return stats.getAverage();
-        stats.getMin();
-        stats.getMax();
+        return new ProductResponseStatsDTO(
+                stats.getAverage(),
+                stats.getMin(),
+                stats.getMax()
+        );
     }
 }
