@@ -4,6 +4,8 @@ import com.felipe.ProductServer.entity.Product;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
+
 public record ProductResponseDTO(
 
         Long id,
@@ -12,12 +14,15 @@ public record ProductResponseDTO(
 
         Double price,
 
-        Integer stock
+        Integer stock,
+
+        BigDecimal assessment
 ) {
     public ProductResponseDTO(Product p) {
         this(p.getId(),
                 p.getName(),
                 p.getPrice(),
-                p.getStock());
+                p.getStock(),
+                p.getAssessment());
     }
 }

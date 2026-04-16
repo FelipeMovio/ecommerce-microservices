@@ -1,7 +1,11 @@
 package com.felipe.ProductServer.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @NoArgsConstructor
@@ -20,5 +24,8 @@ public class Product {
 
     private Double price;
     private Integer stock;
+
+    @Column(columnDefinition = "DECIMAL(2,1) CHECK (assessment >= 0 AND assessment <= 5)")
+    private BigDecimal assessment;
 
 }
