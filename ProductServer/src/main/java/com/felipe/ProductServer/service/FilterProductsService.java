@@ -44,12 +44,12 @@ public class FilterProductsService {
     }
 
     // media das avaliacoes
-
     public Double media(){
         DoubleSummaryStatistics stats = repository.findAll().stream()
+                .filter(p -> p.getAssessment() != null)
                 .mapToDouble(p -> p.getAssessment().doubleValue())
                 .summaryStatistics();
 
-        return stats.getAverage();
+        return stats.getCount() > 0 ? stats.getAverage() : null;
     }
 }
