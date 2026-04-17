@@ -35,12 +35,12 @@ public class FilterProductsService {
 
     }
 
-    // melhores e mias baratos
+    // melhores e mais baratos
     public  List<ProductResponseMiniDTO> melhoresAndBaratos(){
 
         return melhores().stream()
                 .sorted(Comparator.comparing(ProductResponseMiniDTO::price)) // mais baratos primeiro
-                .limit(10) // opcional (top 10)
+                .limit(10) // (top 10)
                 .collect(Collectors.toList());
     }
 
